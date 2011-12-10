@@ -1,11 +1,12 @@
 Team Radar
 =
 
-This is an experimental app that can be used for showing the current
-mood
-of each team member on one radiator web page. Especially with multi-site
-teams this should bring the whole team mentally a little bit closer
+Experimental app that can be used for showing the current
+mood of each team member on one radiator web page. Especially with multi-site
+teams this aims to bring the whole team mentally a little bit closer
 despite the geographical distance (which _always_ sucks) between sites.
+
+WebSockets are used for pushing mood changes in real-time to all (browser) clients.
 
 Status
 -
@@ -19,12 +20,11 @@ Run
 
     node app.js
 
-and open
+open
 
     http://localhost:8085/
 
-Posting a mood change: `curl
-http://localhost:8085/mood/john/2/having%20a%20bad%20hair%20day`
+Posting a mood change: `curl http://localhost:8085/mood/john/2/having%20a%20bad%20hair%20day`
 
 Installation
 -
