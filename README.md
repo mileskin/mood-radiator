@@ -7,6 +7,11 @@ of each team member on one radiator web page. Especially with multi-site
 teams this should bring the whole team mentally a little bit closer
 despite the geographical distance (which _always_ sucks) between sites.
 
+Status
+-
+
+Not usable at all yet. Stay tuned.
+
 Usage
 -
 
