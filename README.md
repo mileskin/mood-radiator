@@ -18,7 +18,7 @@ Usage
 
 Run
 
-    node app.js
+    node team-radar.js
 
 open
 
