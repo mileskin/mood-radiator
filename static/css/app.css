@@ -1,0 +1,33 @@
+body {
+  background-color: lightGray;
+  margin: 0;
+  padding: 0;
+}
+
+.main {
+  background-color: lightYellow;
+}
+
+.users {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  border: 1px dotted red;
+}
+
+.user {
+  /*float: left;*/
+}
+
+.users .bob {
+  background-color: yellow;
+}
+
+.users .jill {
+  background-color: lightBlue;
+}
+
+.users .john {
+  background-color: lightGreen;
+}
+
