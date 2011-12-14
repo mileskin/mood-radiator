@@ -24,3 +24,23 @@ body {
   font-family: Comic Sans MS, Verdana, Arial, Times New Roman, Helvetica;
 }
 
+.aboutToDie {
+  background-color: red;
+}
+
+.quiteBad {
+  background-color: #f778a1;
+}
+
+.okish {
+  background-color: lightYellow;
+}
+
+.quiteHappy {
+  background-color: #82cafa;
+}
+
+.freakinEcstatic {
+  background-color: lightGreen;
+}
+
