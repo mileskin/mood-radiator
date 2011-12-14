@@ -1,0 +1,7 @@
+---
+  users:
+    bob:
+      id: 'bob'
+    jill:
+      id: 'jill'
+
