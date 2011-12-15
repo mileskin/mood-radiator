@@ -14,7 +14,7 @@
   }
 
   var defaultMoodMessage = 'business as usual'
-  var defaultMoodStyle = moodStyles[4]
+  var defaultMoodIndex = 4
 
   function init() {
     initUsers()
@@ -24,8 +24,9 @@
   function initUsers() {
     $.get('/config', function(config) {
       _.each(config.users, function(user) {
-        var userRow = $('<tr id="' + user.id + '"><td class="pic" style="background: url(\'/img/' + user.id + '.jpg\') no-repeat;"></td><td class="mood">' + defaultMoodMessage + '</td></tr>').addClass(defaultMoodStyle)
+        var userRow = $('<tr id="' + user.id + '"><td class="pic" style="background: url(\'/img/' + user.id + '.jpg\') no-repeat;"></td><td class="mood"></td></tr>')
         $('.users').append(userRow)
+        updateMoodForUser({user: user.id, index: defaultMoodIndex, message: defaultMoodMessage})
       })
     })
   }
