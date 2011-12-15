@@ -24,9 +24,11 @@
   function initUsers() {
     $.get('/config', function(config) {
       _.each(config.users, function(user) {
-        var userRow = $('<tr class="user" id="' + user.nick + '"><td class="pic" style="background: url(\'/img/' + user.nick + '.jpg\') no-repeat;"></td><td class="nickContainer moodIndicator"><span class="nick">' + user.nick + '</span></td><td class="moodMessage moodIndicator"/></tr>')
-        $('.users').append(userRow)
-        updateMoodForUser({nick: user.nick, index: defaultMoodIndex, message: defaultMoodMessage})
+        $('.users').append(ich.userRow(user))
+        updateMoodForUser({
+          nick: user.nick,
+          index: defaultMoodIndex,
+          message: defaultMoodMessage})
       })
     })
   }

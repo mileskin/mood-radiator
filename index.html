@@ -4,8 +4,18 @@
   <script src="/socket.io/socket.io.js"></script>
   <script src="/js/vendor/jquery-1.6.4.js"></script>
   <script src="/js/vendor/underscore-1.2.3-min.js"></script>
+  <script src="/js/vendor/i-can-haz-0.9.min.js"></script>
   <script src="/js/team-radar.js"></script>
   <script src="/js/main.js"></script>
+  <script id="userRow" type="text/html">
+    <tr class="user" id="{{ nick }}">
+      <td class="pic" style="background: url(/img/{{ nick }}.jpg) no-repeat;"></td>
+      <td class="nickContainer moodIndicator">
+        <span class="nick">{{ nick }}</span>
+      </td>
+      <td class="moodMessage moodIndicator"></td>
+    </tr>
+  </script>
 </head>
 <body>
   <div class="main">
