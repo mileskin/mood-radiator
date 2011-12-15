@@ -24,6 +24,14 @@ body {
   font-family: Comic Sans MS, Verdana, Arial, Times New Roman, Helvetica;
 }
 
+.users .mood .nick {
+  background-color: brown;
+  color: white;
+  margin-right: 10px;
+  padding: 3px 13px;
+  border-radius: 15px
+}
+
 .aboutToDie {
   background-color: red;
 }

@@ -41,7 +41,7 @@
       moodElem.removeClass(styleClass)
     })
     moodElem
-      .text(data.message)
+      .html('<span class="nick">' + data.user + '</span>' + data.message)
       .addClass(moodStyles[data.index])
   }
 })(jQuery)
