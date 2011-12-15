@@ -11,7 +11,7 @@ WebSockets are used for pushing mood changes in real-time to all (browser) clien
 Status
 -
 
-Not usable at all yet. Stay tuned.
+Quite usable already. Stay tuned for IRC bot.
 
 Usage
 -
@@ -24,7 +24,7 @@ open
 
     http://localhost:8085/
 
-Posting a mood change: `curl http://localhost:8085/mood/john/2/having%20a%20bad%20hair%20day`
+Posting a mood change: `curl http://localhost:8085/mood/jill/2/having%20a%20bad%20hair%20day`
 
 Installation
 -
