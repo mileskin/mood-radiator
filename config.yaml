@@ -1,7 +1,7 @@
 ---
   users:
     bob:
-      id: 'bob'
+      nick: 'bob'
     jill:
-      id: 'jill'
+      nick: 'jill'
 

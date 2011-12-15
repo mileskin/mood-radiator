@@ -17,8 +17,8 @@ app.get('/config', function(req, res) {
   })
 })
 
-app.get('/mood/:user/:index/:message', function(req, res) {
-  io.sockets.emit('moodUpdate', {user: req.params.user, index: req.params.index, message: req.params.message})
+app.get('/mood/:nick/:index/:message', function(req, res) {
+  io.sockets.emit('moodUpdate', {nick: req.params.nick, index: req.params.index, message: req.params.message})
   res.send('ok')
 })
 
