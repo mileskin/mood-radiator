@@ -9,6 +9,16 @@ var moodStyles = {
 var defaultMoodMessage = 'business as usual'
 var defaultMoodStyle = moodStyles[4]
 
+function updateMoodForUser(data) {
+  var moodElem = $('.users #' + data.user + ' .mood')
+  _.each(moodStyles, function(styleClass) {
+    moodElem.removeClass(styleClass)
+  })
+  moodElem
+    .text(data.message)
+    .addClass(moodStyles[data.index])
+}
+
 $(document).ready(function() {
   $.get('/config', function(config) {
     _.each(config.users, function(user) {
@@ -16,16 +26,6 @@ $(document).ready(function() {
       $('.users').append(userRow)
     })
   })
-
-  function updateMoodForUser(data) {
-    var moodElem = $('.users #' + data.user + ' .mood')
-    _.each(moodStyles, function(styleClass) {
-      moodElem.removeClass(styleClass)
-    })
-    moodElem
-      .text(data.message)
-      .addClass(moodStyles[data.index])
-  }
 
   var socket = io.connect(window.location.href)
   socket.on('moodUpdate', updateMoodForUser)
