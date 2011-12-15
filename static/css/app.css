@@ -34,9 +34,13 @@ body {
 }
 
 .user .moodMessage {
-  padding: 20px;
-  font-size: 35px;
+  padding: 15px 25px;
+  font-size: 40px;
   font-family: Comic Sans MS, Verdana, Arial, Times New Roman, Helvetica;
+  background-color: #F2F2F2;
+  border-radius: 15px;
+  background-image: -moz-linear-gradient(#F2F2F2, #F2F2F2);
+  box-shadow: 5px 4px 5px #333333;
 }
 
 .user .aboutToDie {
