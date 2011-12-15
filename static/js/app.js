@@ -17,17 +17,17 @@ $(document).ready(function() {
     })
   })
 
-  function updateMoodForUser(mood) {
-    var moodElem = $('.users #' + mood.user + ' .mood')
+  function updateMoodForUser(data) {
+    var moodElem = $('.users #' + data.user + ' .mood')
     _.each(moodStyles, function(styleClass) {
       moodElem.removeClass(styleClass)
     })
     moodElem
-      .text(mood.message)
-      .addClass(moodStyles[mood.index])
+      .text(data.message)
+      .addClass(moodStyles[data.index])
   }
 
   var socket = io.connect(window.location.href)
-  socket.on('mood', updateMoodForUser)
+  socket.on('moodUpdate', updateMoodForUser)
 })
 
