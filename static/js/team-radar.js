@@ -24,7 +24,7 @@
   function initUsers() {
     $.get('/config', function(config) {
       _.each(config.users, function(user) {
-        var userRow = $('<tr id="' + user.nick + '"><td class="pic" style="background: url(\'/img/' + user.nick + '.jpg\') no-repeat;"></td><td class="mood"></td></tr>')
+        var userRow = $('<tr class="user" id="' + user.nick + '"><td class="pic" style="background: url(\'/img/' + user.nick + '.jpg\') no-repeat;"></td><td class="nickContainer moodIndicator"><span class="nick">' + user.nick + '</span></td><td class="moodMessage moodIndicator"/></tr>')
         $('.users').append(userRow)
         updateMoodForUser({nick: user.nick, index: defaultMoodIndex, message: defaultMoodMessage})
       })
@@ -37,13 +37,12 @@
   }
 
   function updateMoodForUser(data) {
-    var moodElem = $('.users #' + data.nick + ' .mood')
+    var userRow = $('.user#' + data.nick)
     _.each(moodStyles, function(styleClass) {
-      moodElem.removeClass(styleClass)
+      userRow.find('.moodIndicator').removeClass(styleClass)
     })
-    moodElem
-      .html('<span class="nick">' + data.nick + '</span>' + data.message)
-      .addClass(moodStyles[data.index])
+    userRow.find('.moodIndicator').addClass(moodStyles[data.index])
+    userRow.find('.moodMessage').text(data.message)
   }
 })(jQuery)
 

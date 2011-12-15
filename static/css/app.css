@@ -10,48 +10,52 @@ body {
   padding: 0;
 }
 
-.users tr {
+.user {
   height: 180px;
 }
 
-.users .pic {
+.user .pic {
   width: 200px;
 }
 
-.users .mood {
-  padding: 20px;
-  font-size: 35px;
-  font-family: Comic Sans MS, Verdana, Arial, Times New Roman, Helvetica;
+.user .nickContainer {
+  width: 100px;
 }
 
-.users .mood .nick {
+.user .nick {
   background-color: brown;
   color: white;
   font-size: 30px;
-  margin-right: 25px;
+  margin: 0 25px 0 25px;
   padding: 3px 13px;
   border-radius: 15px;
   background-image: -moz-linear-gradient(brown, brown);
   box-shadow: 5px 3px 4px #333333;
 }
 
-.aboutToDie {
+.user .moodMessage {
+  padding: 20px;
+  font-size: 35px;
+  font-family: Comic Sans MS, Verdana, Arial, Times New Roman, Helvetica;
+}
+
+.user .aboutToDie {
   background-color: red;
 }
 
-.quiteBad {
+.user .quiteBad {
   background-color: #f778a1;
 }
 
-.okish {
+.user .okish {
   background-color: lightYellow;
 }
 
-.quiteHappy {
+.user .quiteHappy {
   background-color: #82cafa;
 }
 
-.freakinEcstatic {
+.user .freakinEcstatic {
   background-color: lightGreen;
 }
 
