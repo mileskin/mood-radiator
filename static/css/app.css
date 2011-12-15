@@ -27,9 +27,12 @@ body {
 .users .mood .nick {
   background-color: brown;
   color: white;
-  margin-right: 10px;
+  font-size: 30px;
+  margin-right: 25px;
   padding: 3px 13px;
-  border-radius: 15px
+  border-radius: 15px;
+  background-image: -moz-linear-gradient(brown, brown);
+  box-shadow: 5px 3px 4px #333333;
 }
 
 .aboutToDie {
