@@ -6,6 +6,7 @@ var yaml = require('yaml')
 var configFile = 'config.yaml'
 
 app.use(express.static(__dirname + '/static'))
+app.listen(8085)
 
 app.get('/', function(req, res) {
   res.sendfile(__dirname + '/index.html')
@@ -24,6 +25,4 @@ app.get('/mood/:nick/:index/:message', function(req, res) {
     message: req.params.message})
   res.send('ok')
 })
-
-app.listen(8085)
 
