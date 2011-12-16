@@ -29,20 +29,31 @@ Posting a mood change: `curl http://localhost:8085/mood/jill/2/having%20a%20bad%
 Installation
 -
 
-Requires
+You will need [Node.js](http://nodejs.org/) and [npm](http://npmjs.org/).
 
-* node.js
-* socket.io
-* express.js
+    npm install socket.io
+    npm install express
+    npm install yaml
 
 I installed these in my home folder under `node_modules`. Node.js finds
 them easily there.
 
-TODO
+For configuring your team members you only need to:
+
+* modify `config.yaml` (using IRC nicks in case you want to use IRC bot as the client)
+* add pics of team members using naming convention `some-nick.jpg`
+
+Additionally you might want to adjust user row height in `app.css`:
+
+    .user {
+      height: 180px;
+    }
+
+
+Clients for posting mood updates
 -
 
-* Out-of-the-box ready-steady IRC bot coming up soon. Currently mood can
-  be posted
-using e.g. `curl`. Additional clients can be added easily, you just need
-to do HTTP GET.
+Mood updates can be posted simply issuing an HTTP GET (e.g. `curl http://localhost:8085/mood/jill/2/having%20a%20bad%20hair%20day`), so it should be easy to add new clients. Currently there is a [Supybot](http://sourceforge.net/projects/supybot/) (IRC bot) plugin in `clients/irc/supybot` called `TeamRadar`. Please refer to supybot documentation for installation instructions ([Supybook](http://supybook.fealdia.org/devel/), [writing supybot plugins](http://web.archive.org/web/20080103010543/http://supybot.com/documentation/help/tutorial/plugin-author-tutorial/tutorial-all-pages)). With the bot you can post mood updates using IRC (this is how we use it in my team) e.g. like this:
+
+    @mood 5 yay finally got the bloody thing working zOMG!!11 \o/
 
