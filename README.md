@@ -60,6 +60,15 @@ Mood updates can be posted simply by issuing an HTTP GET (e.g. `curl http://loca
 
     @mood 5 yay finally got the bloody thing working zOMG!!11 \o/
 
+Development
+-
+
+[Scss](http://sass-lang.com/) is used for writing css, so `app.scss`
+should be modified instead of `app.css`. Scss generates css on
+modification when you start the following command in background:
+
+    sass --watch app.scss:app.css
+
 TODO
 -
 

@@ -1,0 +1,77 @@
+$moodMessageBackgroundColor: #f2f2f2;
+$nickBackgroundColor: brown;
+
+body {
+  background-color: lightGray;
+  margin: 0;
+  padding: 0;
+}
+
+.users {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.user {
+  height: 180px;
+}
+
+.user .pic {
+  width: 200px;
+}
+
+.user .nickContainer {
+  width: 100px;
+  text-align: right;
+}
+
+.user .nick,
+.user .moodMessage {
+  box-shadow: 5px 4px 5px #333333;
+}
+
+.user .nick {
+  background-color: $nickBackgroundColor;
+  color: white;
+  font-size: 30px;
+  margin: 0 25px 0 25px;
+  padding: 3px 13px;
+  border-radius: 15px;
+  background-image: -moz-linear-gradient($nickBackgroundColor, $nickBackgroundColor);
+}
+
+.user .moodMessage {
+  padding: 15px 25px;
+  font-size: 40px;
+  font-family: Comic Sans MS, Verdana, Arial, Times New Roman, Helvetica;
+  background-color: $moodMessageBackgroundColor;
+  border-radius: 15px;
+  background-image: -moz-linear-gradient($moodMessageBackgroundColor, $moodMessageBackgroundColor);
+}
+
+.user .aboutToDie {
+  background-color: red;
+}
+
+.user .quiteBad {
+  background-color: #f778a1;
+}
+
+.user .okish {
+  background-color: lightYellow;
+}
+
+.user .quiteHappy {
+  background-color: #82cafa;
+}
+
+.user .freakinEcstatic {
+  background-color: lightGreen;
+}
+
+.users .separator {
+  height: 1px;
+  background-color: $nickBackgroundColor;
+}
+
