@@ -43,19 +43,19 @@ For configuring your team members you only need to:
 * modify `config.yaml` (using IRC nicks in case you want to use IRC bot as the client)
 * add pics to `static/img/` of team members using naming convention `some-nick.jpg`
 
-App reboot not needed afterwards, just refresh the page.
-
 Additionally you might want to adjust user row height in `static/css/app.css`:
 
     .user {
       height: 180px;
     }
 
+App reboot not needed afterwards, just refresh the page.
+
 
 Clients for posting mood updates
 -
 
-Mood updates can be posted simply issuing an HTTP GET (e.g. `curl http://localhost:8085/mood/jill/2/having%20a%20bad%20hair%20day`), so it should be easy to add new clients. Currently there is a [Supybot](http://sourceforge.net/projects/supybot/) (IRC bot) plugin in `clients/irc/supybot` called `TeamRadar`. Please refer to supybot documentation for installation instructions ([Supybook](http://supybook.fealdia.org/devel/), [writing supybot plugins](http://web.archive.org/web/20080103010543/http://supybot.com/documentation/help/tutorial/plugin-author-tutorial/tutorial-all-pages)). With the bot you can post mood updates using IRC (this is how we use it in my team) e.g. like this:
+Mood updates can be posted simply by issuing an HTTP GET (e.g. `curl http://localhost:8085/mood/jill/2/having%20a%20bad%20hair%20day`), so it should be easy to add new clients. Currently there is a [Supybot](http://sourceforge.net/projects/supybot/) (IRC bot) plugin in `clients/irc/supybot` called `TeamRadar`. Please refer to supybot documentation for installation instructions ([Supybook](http://supybook.fealdia.org/devel/), [writing supybot plugins](http://web.archive.org/web/20080103010543/http://supybot.com/documentation/help/tutorial/plugin-author-tutorial/tutorial-all-pages)). With the bot you can post mood updates using IRC (this is how we use it in my team) e.g. like this:
 
     @mood 5 yay finally got the bloody thing working zOMG!!11 \o/
 
