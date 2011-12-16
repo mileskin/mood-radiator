@@ -64,3 +64,8 @@ body {
   background-color: lightGreen;
 }
 
+.users .separator {
+  height: 1px;
+  background-color: brown;
+}
+
