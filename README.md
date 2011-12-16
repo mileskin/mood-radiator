@@ -11,7 +11,8 @@ WebSockets are used for pushing mood changes in real-time to all (browser) clien
 Status
 -
 
-Quite usable already. Stay tuned for IRC bot.
+Done but not done done. My current team uses already. You should too! I
+would love to hear your feedback.
 
 Usage
 -
