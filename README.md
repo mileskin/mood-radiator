@@ -30,7 +30,7 @@ Posting a mood change: `curl http://localhost:8085/mood/jill/2/having%20a%20bad%
 Installation
 -
 
-You will need [Node.js](http://nodejs.org/) and [npm](http://npmjs.org/).
+You will need [Node.js](http://nodejs.org/) and [npm](http://npmjs.org/). Also some node modules:
 
     npm install socket.io
     npm install express
