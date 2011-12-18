@@ -6,12 +6,22 @@ mood of each team member on one radiator web page. Especially with multi-site
 teams this aims to bring the whole team mentally a little bit closer
 despite the geographical distance (which _always_ sucks) between sites.
 
+Mood update contains user's nick, mood index and mood message. Nick must
+be one of the nicks listed in `config.yaml`. It's used for identifying
+the correct user row. Mood index is a number from 1 to 5 (1 == worst, 5
+== best). It used for showing a background color mapped to the given
+index. Given mood message is shown on the user's row.
+
 WebSockets are used for pushing mood changes in real-time to all (browser) clients.
+
+Requires a modern browser. Tested using latest Firefox, Chrome and Safari.
+
+Enjoy, don't forget to [follow me on twitter](http://twitter.com/mileskin)!
 
 Status
 -
 
-Done but not done done. My current team uses already. You should too! I
+It works! My current team uses already. You should too. I
 would love to hear your feedback.
 
 Usage
@@ -25,7 +35,9 @@ open
 
     http://localhost:8085/
 
-Posting a mood change: `curl http://localhost:8085/mood/jill/2/having%20a%20bad%20hair%20day`
+Posting a mood change: use IRC bot (see below) or create your own client (pull requests very welcome). With curl:
+
+    curl http://localhost:8085/mood/jill/2/having%20a%20bad%20hair%20day
 
 Installation
 -
