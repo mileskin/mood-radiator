@@ -25,10 +25,13 @@
     $.get('/config', function(config) {
       _.each(config.users, function(user) {
         $('.users').append(ich.userRow(user))
-        updateMoodForUser({
-          nick: user.nick,
-          index: defaultMoodIndex,
-          message: defaultMoodMessage})
+        var nick = user.nick
+        var currentMood = getCurrentMoodForUser(nick)
+        if (!_.isEmpty(currentMood)) {
+          updateMoodForUser({nick: nick, index: currentMood.index, message: currentMood.message})
+        } else {
+          updateMoodForUser({nick: nick, index: defaultMoodIndex, message: defaultMoodMessage})
+        }
       })
     })
   }
@@ -45,6 +48,24 @@
     })
     userRow.find('.moodIndicator').addClass(moodStyles[data.index])
     userRow.find('.moodMessage').text(data.message)
+    saveCurrentMoodForUser(data)
+  }
+
+  function saveCurrentMoodForUser(user) {
+    localStorage.setItem(user.nick + '.index', user.index)
+    localStorage.setItem(user.nick + '.message', user.message)
+  }
+
+  function getCurrentMoodForUser(nick) {
+    var index = localStorage.getItem(nick + '.index')
+    if (index) {
+      return {
+        index: index,
+        message: localStorage.getItem(nick + '.message')
+      }
+    } else {
+      return {}
+    }
   }
 })(jQuery)
 

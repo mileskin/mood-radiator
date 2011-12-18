@@ -69,8 +69,3 @@ modification when you start the following command in background:
 
     sass --watch app.scss:app.css
 
-TODO
--
-
-* save at least the current messages (using local storage perhaps?)
-
