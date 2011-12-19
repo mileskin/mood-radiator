@@ -18,3 +18,12 @@ body {
   margin: 10px 0 30px 20px;
 }
 
+.execSummary a {
+  background-color: lightGray;
+  padding: 0 3px 3px 3px;
+  color: green;
+  border-radius: 5px;
+  background-image: -moz-linear-gradient(lightGray, lightGray);
+  text-decoration: none;
+}
+
