@@ -1,7 +1,7 @@
 Team Radar
 =
 
-Experimental app that can be used for showing the current
+Shows the current
 mood of each team member on one radiator web page. Especially with multi-site
 teams this aims to bring the whole team mentally a little bit closer
 despite the geographical distance (which _always_ sucks) between sites.
