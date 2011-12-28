@@ -15,6 +15,7 @@
 
   var defaultMoodMessage = 'business as usual'
   var defaultMoodIndex = 4
+  var defaultUserRowHeight = '200'
 
   function init() {
     initUsers()
@@ -22,18 +23,46 @@
   }
 
   function initUsers() {
-    $.get('/config', function(config) {
-      _.each(config.users, function(user) {
-        $('.users').append(ich.userRow(user))
-        var nick = user.nick
-        var currentMood = getCurrentMoodForUser(nick)
-        if (!_.isEmpty(currentMood)) {
-          updateMoodForUser({nick: nick, index: currentMood.index, message: currentMood.message})
-        } else {
-          updateMoodForUser({nick: nick, index: defaultMoodIndex, message: defaultMoodMessage})
-        }
-      })
+    $.get('/config', initUserRows)
+  }
+
+  function initUserRows(config) {
+    _.each(config.users, function(user) {
+      initUserRow(user, config.userRowHeight)
     })
+  }
+
+  function initUserRow(user, rowHeight) {
+    resolvePicUrl(user, rowHeight, function(picUrl) {
+      $.extend(user, {picUrl: picUrl})
+      $('.users').append(ich.userRow(user))
+      var nick = user.nick
+      var currentMood = getCurrentMoodForUser(nick)
+      if (!_.isEmpty(currentMood)) {
+        updateMoodForUser({nick: nick, index: currentMood.index, message: currentMood.message})
+      } else {
+        updateMoodForUser({nick: nick, index: defaultMoodIndex, message: defaultMoodMessage})
+      }
+    })
+  }
+
+  function resolvePicUrl(user, rowHeight, callback) {
+    if (user.gravatarUsername) {
+      var gravatarRequest = $.ajax({
+        url: 'http://en.gravatar.com/' + user.gravatarUsername + '.json',
+        type: 'get',
+        async: true,
+        dataType: 'jsonp'
+      })
+      gravatarRequest.success(function(data) {
+        var hash = data.entry[0].hash
+        picUrl = 'http://www.gravatar.com/avatar/' + hash + '?s=' + rowHeight || defaultUserRowHeight
+        callback(picUrl)
+      })
+    } else {
+      picUrl = '/img/' + user.nick + '.jpg'
+      callback(picUrl)
+    }
   }
 
   function initMoodUpdateListener() {

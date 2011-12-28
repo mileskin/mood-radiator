@@ -1,7 +1,9 @@
 ---
+  userRowHeight: '200'
   users:
-    bob:
-      nick: 'bob'
+    miki:
+      nick: 'miki'
+      gravatarUsername: 'mileskin'
     jill:
       nick: 'jill'
     mrfoobar:
