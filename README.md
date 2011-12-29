@@ -81,3 +81,12 @@ modification when you start the following command in background:
 
     sass --watch app.scss:app.css
 
+TODO
+-
+
+* shrink font on long update messages
+* handle errors
+* regressions tests using jasmine / zombie?
+* 'updated at' timestamp for each user row
+* simple web page for posting mood updates
+
