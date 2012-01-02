@@ -1,7 +1,8 @@
 (function($) {
   if (!$.teamRadar) {
     $.teamRadar = {
-      init: init
+      initUserRows: initUserRows,
+      initMoodUpdateListener: initMoodUpdateListener
     }
   }
 
@@ -17,24 +18,18 @@
   var defaultMoodIndex = 4
   var defaultUserRowHeight = '200'
 
-  function init() {
-    initUsers()
-    initMoodUpdateListener()
-  }
-
-  function initUsers() {
-    $.get('/config', initUserRows)
-  }
-
   function initUserRows(config) {
-    _.each(config.users, function(user) {
-      initUserRow(user, config.userRowHeight)
+    $.get('/config', function(config) {
+      _.each(config.users, function(user) {
+        initUserRow(user, config.userRowHeight)
+      })
     })
   }
 
   function initUserRow(user, rowHeight) {
     resolvePicUrl(user, rowHeight, function(picUrl) {
       $.extend(user, {picUrl: picUrl})
+      console.log(ich.userRow)
       $('.users').append(ich.userRow(user))
       var nick = user.nick
       var currentMood = getCurrentMoodForUser(nick)

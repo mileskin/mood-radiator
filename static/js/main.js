@@ -1,4 +1,5 @@
 $(document).ready(function() {
-  $.teamRadar.init()
+  $.teamRadar.initUserRows()
+  $.teamRadar.initMoodUpdateListener()
 })
 
