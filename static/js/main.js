@@ -1,5 +1,6 @@
 $(document).ready(function() {
-  $.teamRadar.initUserRows()
-  $.teamRadar.initMoodUpdateListener()
+  $.teamRadar.view.initUserRows()
+  $.teamRadar.view.initMoodUpdateListener()
+  console.log('version: ' + $.teamRadar.resources.version)
 })
 

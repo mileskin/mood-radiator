@@ -9,6 +9,10 @@ describe('team radar', function() {
   })
 
   function initContext() {
+    localStorage.setItem('bob.index', "")
+    localStorage.setItem('bob.message', "foo")
+    localStorage.setItem('jill.index', "")
+    localStorage.setItem('jill.message', "foo")
     var config = {
       users: {
         a: {nick: 'bob'},
@@ -16,8 +20,8 @@ describe('team radar', function() {
       }
     }
     registerFakeAjax({url: '/config', successData: config})
-    ich.addTemplate('userRow', loadTestData('.userRowFixture', 'team-radar-fixture.html'))
-    $.teamRadar.initUserRows()
+    $.teamRadar.view.initMoodUpdateListener()
+    $.teamRadar.view.initUserRows()
   }
 
   describe('initialization by configured users', function() {
@@ -33,6 +37,19 @@ describe('team radar', function() {
     it('shows default mood message for each user', function() {
       expect($('#bob .moodMessage')).toHaveText('business as usual')
       expect($('#jill .moodMessage')).toHaveText('business as usual')
+    })
+  })
+
+  describe('posting mood updates', function() {
+    it('updates mood message for user', function() {
+      waits(100)
+      runs(function() {
+        realAjax({url: '/mood/bob/5/yay'})
+      })
+      waits(100)
+      runs(function() {
+        expect($('#bob .moodMessage')).toHaveText('yay')
+      })
     })
   })
 
