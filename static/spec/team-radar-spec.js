@@ -27,6 +27,7 @@ describe('team radar', function() {
     it('updates mood message for user', function() {
       specHelper.updateMood('/mood/bob/5/yay')
       specHelper.async(function() {
+        expect($('#bob .moodIndicator')).toHaveClass('freakinEcstatic')
         expect($('#bob .moodMessage')).toHaveText('yay')
       })
     })
