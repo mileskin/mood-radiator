@@ -17,6 +17,7 @@
   var defaultUserRowHeight = '200'
 
   function initUserRows(config) {
+    $('.users').empty()
     $.get('/config', function(config) {
       _.each(config.users, function(user) {
         initUserRow(user, config.userRowHeight)

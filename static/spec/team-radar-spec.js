@@ -1,30 +1,9 @@
 describe('team radar', function() {
-  var isContextInitialized = false
+  describe('fresh initialization by configured users', function() {
+    beforeEach(function() {
+      specHelper.initContext()
+    })
 
-  beforeEach(function() {
-    if (!isContextInitialized) {
-      isContextInitialized = true
-      initContext()
-    }
-  })
-
-  function initContext() {
-    localStorage.setItem('bob.index', "")
-    localStorage.setItem('bob.message', "foo")
-    localStorage.setItem('jill.index', "")
-    localStorage.setItem('jill.message', "foo")
-    var config = {
-      users: {
-        a: {nick: 'bob'},
-        b: {nick: 'jill'}
-      }
-    }
-    registerFakeAjax({url: '/config', successData: config})
-    $.teamRadar.view.initMoodUpdateListener()
-    $.teamRadar.view.initUserRows()
-  }
-
-  describe('initialization by configured users', function() {
     it('creates a row for each user', function() {
       expect($('.user').length).toEqual(2)
     })
@@ -41,14 +20,38 @@ describe('team radar', function() {
   })
 
   describe('posting mood updates', function() {
+    beforeEach(function() {
+      specHelper.initContext()
+    })
+
     it('updates mood message for user', function() {
-      waits(100)
-      runs(function() {
-        realAjax({url: '/mood/bob/5/yay'})
-      })
-      waits(100)
-      runs(function() {
+      specHelper.updateMood('/mood/bob/5/yay')
+      specHelper.async(function() {
         expect($('#bob .moodMessage')).toHaveText('yay')
+      })
+    })
+  })
+
+  describe('persistence', function() {
+    beforeEach(function() {
+      specHelper.initContext({
+        beforeViewInit: function() {
+          localStorage.setItem('bob.index', "1")
+          localStorage.setItem('bob.message', "saved mood")
+        }
+      })
+    })
+
+    it('loads user when view is initialized', function() {
+      expect($('#bob .moodIndicator')).toHaveClass('aboutToDie')
+      expect($('#bob .moodMessage')).toHaveText('saved mood')
+    })
+
+    it('saves user on mood update', function() {
+      specHelper.updateMood('/mood/bob/5/new%20message')
+      specHelper.async(function() {
+        expect(localStorage.getItem('bob.index')).toEqual('5')
+        expect(localStorage.getItem('bob.message')).toEqual('new message')
       })
     })
   })
