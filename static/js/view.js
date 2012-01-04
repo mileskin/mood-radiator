@@ -74,7 +74,21 @@
     })
     userRow.find('.moodIndicator').addClass(moodStyles[data.index])
     userRow.find('.moodMessage').text(data.message)
+    var throttledAnimation = _.throttle(animateMoodUpdate, 5000)
+    throttledAnimation(userRow)
     saveCurrentMoodForUser(data)
+  }
+
+  function animateMoodUpdate(userRow) {
+    userRow.find('.moodMessage.initiated').addClass('recentlyUpdated')
+    _.delay(function() {
+      userRow.find('.moodMessage.initiated').addClass('undoRecentlyUpdated')
+      _.delay(function() {
+        userRow.find('.moodMessage.recentlyUpdated').removeClass('recentlyUpdated')
+        userRow.find('.moodMessage.undoRecentlyUpdated').removeClass('undoRecentlyUpdated')
+        userRow.find('.moodMessage').addClass('initiated')
+      }, 2000)
+    }, 3000)
   }
 
   function saveCurrentMoodForUser(user) {
