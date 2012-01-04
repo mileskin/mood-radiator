@@ -75,6 +75,10 @@ Mood updates can be posted simply by issuing an HTTP GET (e.g. `curl http://loca
 Development
 -
 
+Running all tests (server must be started):
+
+    http://localhost:8085/?test=true
+
 [Scss](http://sass-lang.com/) is used for writing css, so `app.scss`
 should be modified instead of `app.css`. Scss generates css on
 modification when you start the following command in background:
