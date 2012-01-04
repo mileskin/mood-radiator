@@ -1,5 +1,6 @@
 (function() {
-  resources = {
+  var isTestMode = document.location.href.match(/\/\?test=true$/)
+  var resources = {
     common: {
       js: [
         '/js/vendor/jquery-1.6.4.js',
@@ -35,11 +36,16 @@
     }
   }
 
-  resources.common.js.forEach(addJs)
-  resources.common.css.forEach(addCss)
-
-  resources.test.js.forEach(addJs)
-  resources.test.css.forEach(addCss)
+  function loadResources() {
+    resources.common.js.forEach(addJs)
+    resources.common.css.forEach(addCss)
+    if (isTestMode) {
+      resources.test.js.forEach(addJs)
+      resources.test.css.forEach(addCss)
+    } else {
+      resources.production.js.forEach(addJs)
+    }
+  }
 
   function addJs(path) {
     document.write('\n  <script type="text/javascript" src="' + path + '"></script>')
@@ -48,5 +54,7 @@
   function addCss(path) {
     document.write('\n  <link rel="stylesheet" type="text/css" href="' + path + '"/>')
   }
+
+  loadResources()
 })()
 
