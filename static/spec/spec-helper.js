@@ -17,10 +17,9 @@ var specHelper = (function() {
     }
     var options = $.extend(defaultOptions, customOptions)
     registerFakeAjax({url: '/config', successData: options.config})
-    $.teamRadar.view.initMoodUpdateListener()
     localStorage.clear()
     options.beforeViewInit()
-    $.teamRadar.view.initUserRows()
+    $.teamRadar.view.init()
   }
 
   function updateMood(url) {

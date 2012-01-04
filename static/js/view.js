@@ -1,7 +1,6 @@
 (function(teamRadar, $) {
   teamRadar.view = {
-    initUserRows: initUserRows,
-    initMoodUpdateListener: initMoodUpdateListener
+    init: init
   }
 
   var moodStyles = {
@@ -15,6 +14,11 @@
   var defaultMoodMessage = 'business as usual'
   var defaultMoodIndex = 4
   var defaultUserRowHeight = '200'
+
+  function init() {
+    initMoodUpdateListener()
+    initUserRows()
+  }
 
   function initUserRows(config) {
     $('.users').empty()
