@@ -28,7 +28,6 @@
   function initUserRow(user, rowHeight) {
     resolvePicUrl(user, rowHeight, function(picUrl) {
       $.extend(user, {picUrl: picUrl})
-      console.log(ich.userRow)
       $('.users').append(ich.userRow(user))
       var nick = user.nick
       var currentMood = getCurrentMoodForUser(nick)
