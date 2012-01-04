@@ -39,6 +39,35 @@ body {
   border-radius: 15px;
   background-image: -moz-linear-gradient(#f2f2f2, #f2f2f2); }
 
+.moodMessageAnimation, .user .recentlyUpdated, .user .undoRecentlyUpdated {
+  transition-duration: 2s;
+  -ms-transition-duration: 2s;
+  -webkit-transition-duration: 2s;
+  -o-transition-duration: 2s;
+  -moz-transition-duration: 2s; }
+
+.user .recentlyUpdated {
+  transform: scale(2, 2);
+  -ms-transform: scale(2, 2);
+  /* IE 9 */
+  -webkit-transform: scale(2, 2);
+  /* Safari and Chrome */
+  -o-transform: scale(2, 2);
+  /* Opera */
+  -moz-transform: scale(2, 2);
+  /* Firefox */ }
+
+.user .undoRecentlyUpdated {
+  transform: scale(1, 1);
+  -ms-transform: scale(1, 1);
+  /* IE 9 */
+  -webkit-transform: scale(1, 1);
+  /* Safari and Chrome */
+  -o-transform: scale(1, 1);
+  /* Opera */
+  -moz-transform: scale(1, 1);
+  /* Firefox */ }
+
 .user .aboutToDie {
   background-color: red; }
 

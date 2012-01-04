@@ -1,5 +1,8 @@
 $moodMessageBackgroundColor: #f2f2f2;
 $nickBackgroundColor: brown;
+$moodMessageAnimationDuration: 2s;
+$moodMessageAnimationLargeScage: scale(2,2);
+$moodMessageAnimationNormalScage: scale(1,1);
 
 body {
   background-color: lightGray;
@@ -48,6 +51,32 @@ body {
   background-color: $moodMessageBackgroundColor;
   border-radius: 15px;
   background-image: -moz-linear-gradient($moodMessageBackgroundColor, $moodMessageBackgroundColor);
+}
+
+.moodMessageAnimation {
+  transition-duration: $moodMessageAnimationDuration;
+  -ms-transition-duration: $moodMessageAnimationDuration;
+  -webkit-transition-duration: $moodMessageAnimationDuration;
+  -o-transition-duration: $moodMessageAnimationDuration;
+  -moz-transition-duration: $moodMessageAnimationDuration;
+}
+
+.user .recentlyUpdated {
+  @extend .moodMessageAnimation;
+  transform: $moodMessageAnimationLargeScage;
+  -ms-transform: $moodMessageAnimationLargeScage; /* IE 9 */
+  -webkit-transform: $moodMessageAnimationLargeScage; /* Safari and Chrome */
+  -o-transform: $moodMessageAnimationLargeScage; /* Opera */
+  -moz-transform: $moodMessageAnimationLargeScage; /* Firefox */
+}
+
+.user .undoRecentlyUpdated {
+  @extend .moodMessageAnimation;
+  transform: $moodMessageAnimationNormalScage;
+  -ms-transform: $moodMessageAnimationNormalScage; /* IE 9 */
+  -webkit-transform: $moodMessageAnimationNormalScage; /* Safari and Chrome */
+  -o-transform: $moodMessageAnimationNormalScage; /* Opera */
+  -moz-transform: $moodMessageAnimationNormalScage; /* Firefox */
 }
 
 .user .aboutToDie {
