@@ -8,6 +8,7 @@
         '/js/vendor/underscore-1.2.3-min.js',
         '/js/vendor/i-can-haz-0.9.min.js',
         '/js/team-radar.js',
+        '/js/domain.js',
         '/js/view.js'
       ],
       css: [
