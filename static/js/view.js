@@ -43,15 +43,15 @@
         url: 'http://en.gravatar.com/' + user.gravatarUsername() + '.json',
         type: 'get',
         async: true,
-        dataType: 'jsonp'
-      })
-      gravatarRequest.success(function(data) {
-        var hash = data.entry[0].hash
-        picUrl = 'http://www.gravatar.com/avatar/' + hash + '?s=' + rowHeight || defaultUserRowHeight
-        callback(picUrl)
+        dataType: 'jsonp',
+        success: function(data) {
+          var hash = data.entry[0].hash
+          var picUrl = 'http://www.gravatar.com/avatar/' + hash + '?s=' + (rowHeight || defaultUserRowHeight)
+          callback(picUrl)
+        }
       })
     } else {
-      picUrl = '/img/' + user.nick() + '.jpg'
+      var picUrl = '/img/' + user.nick() + '.jpg'
       callback(picUrl)
     }
   }

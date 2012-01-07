@@ -35,6 +35,32 @@ describe('team radar', function() {
     })
   })
 
+  describe('pic url resolver', function() {
+    beforeEach(function() {
+      specHelper.initContext({
+        config: {
+          users: {
+            a: {
+              nick: 'bob1',
+              gravatarUsername: 'bob'
+            }
+          }
+        },
+        beforeViewInit: function() {
+          registerFakeAjax({
+            url: 'http://en.gravatar.com/bob.json',
+            successData: {entry: [{hash: "abc123"}]}
+          })
+        }
+      })
+    })
+
+    it('resolves gravatar pic url', function() {
+      var expectedBackgroundUrl = 'http://www.gravatar.com/avatar/abc123?s=200'
+      expect($('#bob1 .pic').attr('style')).toContain(expectedBackgroundUrl)
+    })
+  })
+
   describe('persistence', function() {
     var user = new User({
       nick: 'bob',
@@ -62,12 +88,6 @@ describe('team radar', function() {
         expect(savedUser.moodIndex).toEqual('5')
         expect(savedUser.moodMessage).toEqual('new message')
       })
-    })
-  })
-
-  xdescribe('pic url resolver', function() {
-    it('resolves gravatar url', function() {
-      expect(1).toEqual(1)
     })
   })
 
