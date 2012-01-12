@@ -37,7 +37,7 @@ open
 
 Posting a mood change: use IRC bot (see below) or create your own client (pull requests very welcome). With curl:
 
-    curl http://localhost:8085/mood/jill/2/having%20a%20bad%20hair%20day
+    curl -d "nick=jill&moodIndex=2&moodMessage=having%20a%20bad%20hair%20day" http://localhost:8085/moodUpdate
 
 Installation
 -
