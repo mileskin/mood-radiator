@@ -26,7 +26,7 @@
         '/spec/lib/jasmine-jquery-1.3.1.js',
         '/spec/lib/jasmine/jasmine-1.1.0/jasmine-html.js',
         '/spec/lib/urlEncode.js',
-        '/spec/lib/jasmine-fake-ajax-0.3.2.js',
+        '/spec/lib/jasmine-fake-ajax-0.3.3.js',
         '/spec/spec-helper.js',
         '/spec/team-radar-spec.js',
         '/spec/runner.js'

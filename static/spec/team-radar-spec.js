@@ -27,7 +27,7 @@ describe('team radar', function() {
     })
 
     it('updates mood message for user', function() {
-      specHelper.updateMood('/mood/bob/5/yay')
+      specHelper.updateMood('bob', '5', 'yay')
       specHelper.async(function() {
         expect($('#bob .moodIndicator')).toHaveClass('freakinEcstatic')
         expect($('#bob .moodMessage')).toHaveText('yay')
@@ -82,11 +82,43 @@ describe('team radar', function() {
     })
 
     it('saves user on mood update', function() {
-      specHelper.updateMood('/mood/bob/5/new%20message')
+      specHelper.updateMood('bob', '5', 'new message')
       specHelper.async(function() {
         var savedUser = $.parseJSON(localStorage.getItem(user.userId()))
         expect(savedUser.moodIndex).toEqual('5')
         expect(savedUser.moodMessage).toEqual('new message')
+      })
+    })
+  })
+
+  describe('client for posting mood updates', function() {
+    beforeEach(function() {
+      specHelper.initContext()
+    })
+
+    it('lists all nicks', function() {
+      expect($('.client .nicks option').length).toEqual(2)
+    })
+
+    it('parses mood index and message from text input', function() {
+      specHelper.async(function() {
+        useRealAjaxFor({url: '/moodUpdate', type: 'post'})
+        specHelper.updateMoodWithClient('jill', '5 food was plenty')
+      })
+      specHelper.async(function() {
+        expect($('#jill .moodIndicator')).toHaveClass('freakinEcstatic')
+        expect($('#jill .moodMessage')).toHaveText('food was plenty')
+      })
+    })
+
+    it('keeps current index if new index is not specified', function() {
+      specHelper.async(function() {
+        useRealAjaxFor({url: '/moodUpdate', type: 'post'})
+        specHelper.updateMoodWithClient('bob', 'the same')
+      })
+      specHelper.async(function() {
+        expect($('#bob .moodIndicator')).toHaveClass('quiteHappy')
+        expect($('#bob .moodMessage')).toHaveText('the same')
       })
     })
   })

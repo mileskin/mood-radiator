@@ -17,16 +17,52 @@
 
   function init() {
     initMoodUpdateListener()
+    initClient()
     initUserRows()
-  }
-
-  function initUserRows(config) {
-    $('.users').empty()
     $.get('/config', function(config) {
       _.each(config.users, function(configUser) {
-        initUserRow(new User(configUser).fetch(), config.userRowHeight)
+        var user = new User(configUser).fetch()
+        $('.client .nicks').append(ich.nickOption(user))
+        initUserRow(user, config.userRowHeight)
       })
     })
+  }
+
+  function initClient() {
+    $('.client .nicks').empty()
+    $('.client .sendMoodUpdate').click(function(event) {
+      event.preventDefault()
+      var nick = $('.client .nicks option:selected').val()
+      var mood = parseIndexAndMessageFrom($('.client .moodUpdateInput').val())
+      $.ajax({
+        type: 'post',
+        url: '/moodUpdate',
+        async: false,
+        data: {
+          nick: nick,
+          moodIndex: mood.index,
+          moodMessage: mood.message
+        }
+      })
+    })
+  }
+
+  function parseIndexAndMessageFrom(string) {
+    var a = string.split(' ')
+    if (Number(a[0])) {
+      return {
+        index: a[0],
+        message: _.tail(a).join(' ')
+      }
+    } else {
+      return {
+        message: string
+      }
+    }
+  }
+
+  function initUserRows() {
+    $('.users').empty()
   }
 
   function initUserRow(user, rowHeight) {

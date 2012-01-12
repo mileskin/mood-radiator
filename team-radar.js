@@ -6,6 +6,7 @@ var yaml = require('yaml')
 var configFile = 'config.yaml'
 
 app.use(express.static(__dirname + '/static'))
+app.use(express.bodyParser())
 app.listen(8085)
 
 app.get('/', function(req, res) {
@@ -18,11 +19,11 @@ app.get('/config', function(req, res) {
   })
 })
 
-app.get('/mood/:nick/:index/:message', function(req, res) {
+app.post('/moodUpdate', function(req, res) {
   io.sockets.emit('moodUpdate', {
-    nick: req.params.nick,
-    moodIndex: req.params.index,
-    moodMessage: req.params.message})
+    nick: req.body.nick,
+    moodIndex: req.body.moodIndex,
+    moodMessage: req.body.moodMessage})
   res.send('ok')
 })
 

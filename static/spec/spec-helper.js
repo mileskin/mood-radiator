@@ -2,6 +2,7 @@ var specHelper = (function() {
   return {
     initContext: initContext,
     updateMood: updateMood,
+    updateMoodWithClient: updateMoodWithClient,
     async: async
   }
 
@@ -22,10 +23,27 @@ var specHelper = (function() {
     $.teamRadar.view.init()
   }
 
-  function updateMood(url) {
+  function updateMoodWithClient(nick, message) {
+    runs(function() {
+      $('.client .nicks option').removeAttr('selected')
+      $('.client .nicks option[name="' + nick + '"]').attr('selected', true)
+      $('.client .moodUpdateInput').val(message)
+      $('.client .sendMoodUpdate').click()
+    })
+  }
+
+  function updateMood(nick, index, message) {
     waits(100)
     runs(function() {
-      realAjax({url: url})
+      realAjax({
+        type: 'post',
+        url: 'moodUpdate',
+        data: {
+          nick: nick,
+          moodIndex: index,
+          moodMessage: message
+        }
+      })
     })
   }
 

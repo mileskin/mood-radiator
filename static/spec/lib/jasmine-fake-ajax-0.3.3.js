@@ -12,9 +12,12 @@
 
   $.ajax = function(realOptions) {
     jasmine.FakeAjax.recordedSession.addRealOptions(realOptions)
+    var allBypassableOptions = jasmine.FakeAjax.recordedSession.allBypassableOptions
     var allFakeOptions = jasmine.FakeAjax.recordedSession.allFakeOptions
-    if (!_.isEmpty(allFakeOptions)) {
-      var fakeOptions = findMatchingFakeOptions(realOptions, allFakeOptions)
+    if (!_.isEmpty(findMatchingOptions(realOptions, allBypassableOptions))) {
+      return jasmine.FakeAjax.realAjax(realOptions)
+    } else if (!_.isEmpty(allFakeOptions)) {
+      var fakeOptions = findMatchingOptions(realOptions, allFakeOptions)
       if (_.isEmpty(fakeOptions)) {
         jasmine.FakeAjax.log.warn(messageWithContextInfo("No matching fake ajax options was found", realOptions))
       } else {
@@ -28,11 +31,17 @@
   function RecordedSession() {
     // All registered fake ajax options.
     this.allFakeOptions = []
+    // All registered ajax options that should be bypassed and delegated to real ajax.
+    this.allBypassableOptions = []
     // All real ajax calls triggered by sut.
     this.allRealOptions = []
 
     this.registerFakeAjax = function(options) {
       this.allFakeOptions.push(options)
+    }
+
+    this.addBypassableOptions = function(options) {
+      this.allBypassableOptions.push(options)
     }
 
     this.addRealOptions = function(options) {
@@ -124,25 +133,25 @@
     throw errorMessage
   }
 
-  function findMatchingFakeOptions(realOptions, allFakeOptions) {
+  function findMatchingOptions(realOptions, allOtherOptions) {
     var comparableFields = ['url', 'type', 'data', 'dataType', 'async']
-    var allMatchingFakeOptions = _.select(allFakeOptions, function(fakeOptions) {
+    var allMatchingOptions = _.select(allOtherOptions, function(otherOptions) {
       var real = _.clone(realOptions)
-      var fake = _.clone(fakeOptions)
-      _.each([real, fake], function(o) {
+      var other = _.clone(otherOptions)
+      _.each([real, other], function(o) {
         o.type = (o.type || 'get').toLowerCase()
       })
       return _.all(comparableFields, function(field) {
-        return _.isUndefined(fake[field]) ? true : _.isEqual(fake[field], real[field])
+        return _.isUndefined(other[field]) ? true : _.isEqual(other[field], real[field])
       })
     })
-    if (allMatchingFakeOptions.length > 1) {
-      logAndThrow("Multiple matching fake ajax options found, not able to decide which callbacks to use " +
+    if (allMatchingOptions.length > 1) {
+      logAndThrow("Multiple matching ajax options found, not able to decide which callbacks to use " +
         "because the result was ambiguous. Real ajax options: " + JSON.stringify(realOptions) + ". " +
-        "All matching (and thus conflicting) fake options: " +
-        _.map(allMatchingFakeOptions, function(fakeOptions){ return JSON.stringify(fakeOptions) }))
+        "All matching (and thus conflicting) options: " +
+        _.map(allMatchingOptions, function(options){ return JSON.stringify(options) }))
     }
-    return _.first(allMatchingFakeOptions)
+    return _.first(allMatchingOptions)
   }
 
   function callAvailableCallbackHandlers(real, fake) {
@@ -230,6 +239,7 @@
 function realAjax(options) { jasmine.FakeAjax.realAjax(options) }
 function fakeAjax(options) { jasmine.FakeAjax.initContext(options) }
 function registerFakeAjax(options) { jasmine.FakeAjax.recordedSession.registerFakeAjax(options) }
+function useRealAjaxFor(options) { jasmine.FakeAjax.recordedSession.addBypassableOptions(options) }
 function loadTestData(selector, url) { return jasmine.FakeAjax.loadTestData(selector, url) }
 function latestAjax() { return jasmine.FakeAjax.latestAjax() }
 function latestAjaxWithUrlMatching(partialUrl) { return jasmine.FakeAjax.latestAjaxWithUrlMatching(partialUrl) }
