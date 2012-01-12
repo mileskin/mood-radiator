@@ -33,7 +33,8 @@
     $('.client .sendMoodUpdate').click(function(event) {
       event.preventDefault()
       var nick = $('.client .nicks option:selected').val()
-      var mood = parseIndexAndMessageFrom($('.client .moodUpdateInput').val())
+      var currentIndex = new $.teamRadar.domain.User({nick: nick}).fetch().moodIndex()
+      var mood = parseIndexAndMessageFrom($('.client .moodUpdateInput').val(), currentIndex)
       $.ajax({
         type: 'post',
         url: '/moodUpdate',
@@ -47,7 +48,7 @@
     })
   }
 
-  function parseIndexAndMessageFrom(string) {
+  function parseIndexAndMessageFrom(string, currentIndex) {
     var a = string.split(' ')
     if (Number(a[0])) {
       return {
@@ -56,6 +57,7 @@
       }
     } else {
       return {
+        index: currentIndex,
         message: string
       }
     }

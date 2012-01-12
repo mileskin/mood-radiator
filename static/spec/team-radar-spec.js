@@ -113,11 +113,14 @@ describe('team radar', function() {
 
     it('keeps current index if new index is not specified', function() {
       specHelper.async(function() {
+        specHelper.updateMood('bob', '3', 'ok')
+      })
+      specHelper.async(function() {
         useRealAjaxFor({url: '/moodUpdate', type: 'post'})
         specHelper.updateMoodWithClient('bob', 'the same')
       })
       specHelper.async(function() {
-        expect($('#bob .moodIndicator')).toHaveClass('quiteHappy')
+        expect($('#bob .moodIndicator')).toHaveClass('okish')
         expect($('#bob .moodMessage')).toHaveText('the same')
       })
     })

@@ -33,7 +33,7 @@ var specHelper = (function() {
   }
 
   function updateMood(nick, index, message) {
-    waits(100)
+    waits(200)
     runs(function() {
       realAjax({
         type: 'post',
@@ -48,7 +48,7 @@ var specHelper = (function() {
   }
 
   function async(callback) {
-    waits(100)
+    waits(200)
     runs(callback)
   }
 })()
