@@ -17,24 +17,28 @@
 
   function init() {
     initMoodUpdateListener()
-    initClient()
-    initUserRows()
     $.get('/config', function(config) {
-      _.each(config.users, function(configUser) {
-        var user = new User(configUser).fetch()
-        $('.client .nicks').append(ich.nickOption(user))
-        initUserRow(user, config.userRowHeight)
-      })
+      $('.clientContainer').empty()
+      var isRadiatorMode = document.location.href.match(/\/\?radiator=true$/)
+      if (!isRadiatorMode) {
+        initClient(config)
+      }
+      initUserRows(config)
     })
   }
 
-  function initClient() {
-    $('.client .nicks').empty()
+  function initClient(config) {
+    $('.clientContainer').append(ich.clientForPostingMoodUpdates())
+    _.each(config.users, function(configUser) {
+      var user = new User(configUser).fetch()
+      $('.client .nicks').append(ich.nickOption(user))
+    })
     $('.client .sendMoodUpdate').click(function(event) {
       event.preventDefault()
       var nick = $('.client .nicks option:selected').val()
-      var currentIndex = new $.teamRadar.domain.User({nick: nick}).fetch().moodIndex()
-      var mood = parseIndexAndMessageFrom($('.client .moodUpdateInput').val(), currentIndex)
+      var input = $('.client .moodUpdateInput').val()
+      var currentIndex = new User({nick: nick}).fetch().moodIndex()
+      var mood = parseIndexAndMessageFrom(input, currentIndex)
       $.ajax({
         type: 'post',
         url: '/moodUpdate',
@@ -48,7 +52,7 @@
     })
   }
 
-  function parseIndexAndMessageFrom(string, currentIndex) {
+  function parseIndexAndMessageFrom(string, defaultIndex) {
     var a = string.split(' ')
     if (Number(a[0])) {
       return {
@@ -57,14 +61,17 @@
       }
     } else {
       return {
-        index: currentIndex,
+        index: defaultIndex,
         message: string
       }
     }
   }
 
-  function initUserRows() {
+  function initUserRows(config) {
     $('.users').empty()
+    _.each(config.users, function(configUser) {
+      initUserRow(new User(configUser).fetch(), config.userRowHeight)
+    })
   }
 
   function initUserRow(user, rowHeight) {

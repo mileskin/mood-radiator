@@ -1,6 +1,15 @@
 <html>
 <head>
   <title>Team Radar</title>
+  <script id="clientForPostingMoodUpdates" type="text/html">
+    <div class="client">
+      <form>
+        <select class="nicks"></select>
+        <input class="moodUpdateInput" type="text" size="50" maxlength="200"/>
+        <input class="sendMoodUpdate" type="submit" value="Send mood update"/>
+      </form>
+    </div>
+  </script>
   <script id="nickOption" type="text/html">
     <option name="{{ nick }}">{{ nick }}</option>
   </script>
@@ -22,14 +31,10 @@
 </head>
 <body>
   <div class="main">
-    <div class="client">
-      <form>
-        <select class="nicks"></select>
-        <input class="moodUpdateInput" type="text" size="50" maxlength="200"/>
-        <input class="sendMoodUpdate" type="submit" value="Send mood update"/>
-      </form>
+    <div class="clientContainer"></div>
+    <div class="usersContainer">
+      <table class="users" cellpadding="0" cellspacing="0"></table>
     </div>
-    <table class="users" cellpadding="0" cellspacing="0"></table>
   </div>
 </body>
 </html>

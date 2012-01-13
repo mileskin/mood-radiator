@@ -96,6 +96,11 @@ describe('team radar', function() {
       specHelper.initContext()
     })
 
+    it('is visible when not in radiator mode', function() {
+      expect($('.client')).toExist()
+      expect($('.client')).toBeVisible()
+    })
+
     it('lists all nicks', function() {
       expect($('.client .nicks option').length).toEqual(2)
     })
