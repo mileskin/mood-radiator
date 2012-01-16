@@ -1,5 +1,6 @@
 describe('team radar', function() {
   var User = $.teamRadar.domain.User
+  var timestampFormat = new User({nick: 'any'}).timestampFormat
 
   describe('fresh initialization by configured users', function() {
     beforeEach(function() {
@@ -13,6 +14,14 @@ describe('team radar', function() {
     it('shows nick for each user', function() {
       expect($('#bob .nick')).toHaveText('bob')
       expect($('#jill .nick')).toHaveText('jill')
+    })
+
+    it('shows updated at timestamp for each user', function() {
+      _.each(['bob', 'jill'], function(user) {
+        var updatedAt = moment($('#' + user + ' .updatedAt').text(), timestampFormat)
+        var now = moment()
+        expect(updatedAt.diff(now)).toBeGreaterThan(-2000)
+      })
     })
 
     it('shows default mood message for each user', function() {
@@ -167,12 +176,22 @@ describe('team radar', function() {
       it('can be saved to local storage', function() {
         var user = new User({
           nick: 'jill',
-          moodIndex: 2
+          moodIndex: 2,
+          updatedAt: 'timestamp'
         })
         expect(localStorage.getItem(user.userId())).toBeNull()
         user.save()
-        var userJson = '{"moodIndex":2,"moodMessage":"business as usual","nick":"jill"}'
-        expect(localStorage.getItem(user.userId())).toEqual(userJson)
+        var savedUser = $.parseJSON(localStorage.getItem(user.userId()))
+        var expectedUser = {
+          nick: 'jill',
+          moodIndex: 2,
+          moodMessage: 'business as usual'
+        }
+        var updatedAt = moment(savedUser.updatedAt, timestampFormat)
+        expect(savedUser.nick).toEqual(expectedUser.nick)
+        expect(updatedAt.diff(moment())).toBeGreaterThan(-2000)
+        expect(savedUser.moodIndex).toEqual(expectedUser.moodIndex)
+        expect(savedUser.moodMessage).toEqual(expectedUser.moodMessage)
       })
 
       it('fetch from local storage is merged on top of current field values', function() {
@@ -197,12 +216,15 @@ describe('team radar', function() {
           nick: 'dog',
           moodIndex: 3
         })
-        var expectedFields = {
+        var expected = {
+          nick : 'dog',
           moodIndex: 3,
-          moodMessage: user.defaultMoodMessage,
-          nick : 'dog'
+          moodMessage: user.defaultMoodMessage
         }
-        expect(user.fetch().save().fetch().save().fields).toEqual(expectedFields)
+        var saved = user.fetch().save().fetch().save().fields
+        expect(saved.nick).toEqual(expected.nick)
+        expect(saved.moodIndex).toEqual(expected.moodIndex)
+        expect(saved.moodMessage).toEqual(expected.moodMessage)
       })
 
       it('has pic url', function() {

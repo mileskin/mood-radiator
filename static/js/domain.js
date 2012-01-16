@@ -6,6 +6,7 @@
   function User(customFields) {
     this.defaultMoodMessage = 'business as usual'
     this.defaultMoodIndex = 4
+    this.timestampFormat = 'DD.MM.YYYY HH:mm:ss'
 
     if (_.isEmpty(customFields) || _.isEmpty(customFields.nick)) {
       throw 'nick must be specified in custom fields'
@@ -13,13 +14,22 @@
 
     this.fields = $.extend({
       moodIndex: this.defaultMoodIndex,
-      moodMessage: this.defaultMoodMessage
+      moodMessage: this.defaultMoodMessage,
+      updatedAt: moment().format(this.timestampFormat)
     }, customFields)
 
     this.nick = function() { return this.fields.nick }
     this.gravatarUsername = function() { return this.fields.gravatarUsername }
     this.moodIndex = function() { return this.fields.moodIndex }
     this.moodMessage = function() { return this.fields.moodMessage }
+    this.updatedAt = function(timestamp) {
+      if (timestamp) {
+        this.fields = $.extend(this.fields, {updatedAt: timestamp})
+        return this
+      } else {
+        return this.fields.updatedAt
+      }
+    }
     this.picUrl = function(url) {
       if (url) {
         this.fields = $.extend(this.fields, {picUrl: url})
@@ -30,6 +40,7 @@
     }
 
     this.save = function() {
+      this.updatedAt(moment().format(this.timestampFormat))
       localStorage.setItem(this.userId(), JSON.stringify(this.fields))
       return this
     }

@@ -70,7 +70,7 @@
   function initUserRows(config) {
     $('.users').empty()
     _.each(config.users, function(configUser) {
-      initUserRow(new User(configUser).fetch(), config.userRowHeight)
+      initUserRow(new User(configUser).fetch().save(), config.userRowHeight)
     })
   }
 
@@ -104,7 +104,7 @@
   function initMoodUpdateListener() {
     var socket = io.connect(window.location.href)
     socket.on('moodUpdate', function(data) {
-      updateMood(new User(data))
+      updateMood(new User(data).save())
     })
   }
 
@@ -114,8 +114,8 @@
       userRow.find('.moodIndicator').removeClass(styleClass)
     })
     userRow.find('.moodIndicator').addClass(moodStyles[user.moodIndex()])
+    userRow.find('.updatedAt').text(user.updatedAt())
     userRow.find('.moodMessage').text(user.moodMessage())
-    user.save()
     var throttledAnimation = _.throttle(animateMoodUpdate, 5000)
     throttledAnimation(userRow)
   }

@@ -96,5 +96,4 @@ TODO
 
 * shrink font on long update messages
 * handle errors
-* 'updated at' timestamp for each user row
 

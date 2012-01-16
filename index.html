@@ -16,8 +16,13 @@
   <script id="userRow" type="text/html">
     <tr class="user" id="{{ nick }}">
       <td class="pic" style="background: url({{ picUrl }}) no-repeat;"></td>
-      <td class="nickContainer moodIndicator">
-        <span class="nick">{{ nick }}</span>
+      <td class="nickAndTimestampContainer moodIndicator">
+        <div class="nickContainer">
+          <span class="nick">{{ nick }}</span>
+        </div>
+        <div>
+          <span class="updatedAt">{{ updatedAt }}</span>
+        </div>
       </td>
       <td class="moodIndicator">
         <span class="moodMessage"></span>

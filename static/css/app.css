@@ -37,9 +37,13 @@ body {
 .user .pic {
   width: 200px; }
 
+.user .nickAndTimestampContainer {
+  width: 150px;
+  text-align: right;
+  padding: 13px 0 0 0; }
+
 .user .nickContainer {
-  width: 100px;
-  text-align: right; }
+  margin: 0 0 10px 0; }
 
 .user .nick,
 .user .moodMessage {
@@ -49,10 +53,15 @@ body {
   background-color: brown;
   color: white;
   font-size: 30px;
-  margin: 0 25px 0 25px;
+  margin: 0 25px 8px 25px;
   padding: 3px 13px;
   border-radius: 15px;
   background-image: -moz-linear-gradient(brown, brown); }
+
+.user .updatedAt {
+  color: #aaa;
+  font-size: 10px;
+  margin: 0 20px; }
 
 .user .moodMessage {
   padding: 15px 25px;
