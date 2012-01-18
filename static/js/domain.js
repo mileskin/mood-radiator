@@ -21,20 +21,15 @@
     this.gravatarUsername = function() { return this.fields.gravatarUsername }
     this.moodIndex = function() { return this.fields.moodIndex }
     this.moodMessage = function() { return this.fields.moodMessage }
-    this.updatedAt = function(timestamp) {
-      if (timestamp) {
-        this.fields = $.extend(this.fields, {updatedAt: timestamp})
+    this.updatedAt = function(timestamp) { return this.fieldValue('updatedAt', timestamp) }
+    this.picUrl = function(url) { return this.fieldValue('picUrl', url) }
+
+    this.fieldValue = function(field, value) {
+      if (value) {
+        this.fields[field] = value
         return this
       } else {
-        return this.fields.updatedAt
-      }
-    }
-    this.picUrl = function(url) {
-      if (url) {
-        this.fields = $.extend(this.fields, {picUrl: url})
-        return this
-      } else {
-        return this.fields.picUrl
+        return this.fields[field]
       }
     }
 
