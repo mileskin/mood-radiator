@@ -228,7 +228,10 @@ describe('team radar', function() {
       })
 
       it('has pic url', function() {
-        expect(new User({nick: 'any'}).picUrl('/pic').picUrl()).toEqual('/pic')
+        var user = new User({nick: 'any'})
+        var expectedPicUrl = '/path/to/pic.png'
+        expect(user.picUrl()).toBeUndefined()
+        expect(user.picUrl(expectedPicUrl).picUrl()).toEqual(expectedPicUrl)
       })
 
       it('has "updated at" timestamp', function() {
