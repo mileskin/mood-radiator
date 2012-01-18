@@ -15,7 +15,6 @@
     this.fields = $.extend({
       moodIndex: this.defaultMoodIndex,
       moodMessage: this.defaultMoodMessage,
-      updatedAt: moment().format(this.timestampFormat)
     }, customFields)
 
     this.nick = function() { return this.fields.nick }
