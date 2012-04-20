@@ -29,11 +29,19 @@ Usage
 
 Run `node team-radar.js`
 
-### Registering new users
+### Registering or updating users
+
+It is possible to
+* Update existing users
+* Register new users
 
 #### Curl
 
 `curl -d "nick=test&gravatarUsername=gee" http://localhost:8085/users`
+
+#### Web UI
+
+Open `http://localhost:8085/`, insert a nickname and optionally Gravatar username and press the button.
 
 ### Radiator view
 
