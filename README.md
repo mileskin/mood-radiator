@@ -94,6 +94,4 @@ modification when you start the following command in background:
 TODO
 -
 
-* shrink font on long update messages
 * handle errors
-
