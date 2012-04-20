@@ -50,6 +50,20 @@
         }
       })
     })
+    $('.client .registerNewUser').click(function(event) {
+      event.preventDefault()
+      var nick = $('.client #nickInput').val()
+      var gravatarUsername = $('.client #gravatarUsernameInput').val()
+      $.ajax({
+        type: 'post',
+        url: '/users',
+        async: false,
+        data: {
+          nick: nick,
+          gravatarUsername: gravatarUsername
+        }
+      })
+    })
   }
 
   function parseIndexAndMessageFrom(string, defaultIndex) {
