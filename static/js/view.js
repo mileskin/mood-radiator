@@ -116,8 +116,17 @@
     userRow.find('.moodIndicator').addClass(moodStyles[user.moodIndex()])
     userRow.find('.updatedAt').text(user.updatedAt())
     userRow.find('.moodMessage').text(user.moodMessage())
+    userRow.find('.moodMessage').css('font-size', calculateFontSize(user.moodMessage())) 
     var throttledAnimation = _.throttle(animateMoodUpdate, 5000)
     throttledAnimation(userRow)
+  }
+
+  function calculateFontSize(moodMsg) {
+    var maxAt = 30
+    var overSize = moodMsg.length <= maxAt ? 0 : moodMsg.length - maxAt
+    var factor = 0.4
+    var fontSize = Math.max(25, 100 - factor * overSize)
+    return fontSize + "%"
   }
 
   function animateMoodUpdate(userRow) {

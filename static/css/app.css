@@ -46,7 +46,7 @@ body {
   margin: 0 0 10px 0; }
 
 .user .nick,
-.user .moodMessage {
+.user .moodMessageContainer {
   box-shadow: 5px 4px 5px #333333; }
 
 .user .nick {
@@ -63,7 +63,7 @@ body {
   font-size: 10px;
   margin: 0 20px; }
 
-.user .moodMessage {
+.user .moodMessageContainer {
   padding: 15px 25px;
   font-size: 40px;
   font-family: Verdana, Arial, Times New Roman, Helvetica;
