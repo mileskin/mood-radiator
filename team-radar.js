@@ -25,3 +25,26 @@ app.post('/moodUpdate', function(req, res) {
     moodMessage: req.body.moodMessage})
   res.send('ok')
 })
+
+app.post('/users', function(req, res) {
+  var username = req.body.nick
+  var createNewUser = function() {
+    var gravatarUsername = req.body.gravatarUsername
+    var newUser = {}
+    newUser['nick'] = username
+    if (gravatarUsername) {
+      newUser['gravatarUsername'] = gravatarUsername
+    }
+    return newUser
+  }
+  fs.readFile(configFile, function(err, fileContents) {
+    var config = JSON.parse(fileContents.toString())
+    config.users[username] = createNewUser()
+    fs.writeFile(configFile, JSON.stringify(config, null, 2), function(error) {
+      if (error) {
+        console.log("writing to file failed")
+      }
+    })
+  })
+  res.send('ok')
+})

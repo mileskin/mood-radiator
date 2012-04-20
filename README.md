@@ -29,6 +29,12 @@ Usage
 
 Run `node team-radar.js`
 
+### Registering new users
+
+#### Curl
+
+`curl -d "nick=test&gravatarUsername=gee" http://localhost:8085/users`
+
 ### Radiator view
 
 * open `http://localhost:8085/?radiator=true` (client is hidden)
