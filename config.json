@@ -1,0 +1,15 @@
+{
+  "userRowHeight": 200,
+  "users": {
+    "miki": {
+      "nick": "miki",
+      "gravatarUsername": "mileskin"
+    },
+    "jill": {
+      "nick": "jill"
+    },
+    "mrfoobar": {
+      "nick": "mrfoobar"
+    }
+  }
+}

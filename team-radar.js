@@ -2,8 +2,7 @@ var express = require('express')
 var app = express.createServer()
 var io = require('socket.io').listen(app)
 var fs = require('fs')
-var yaml = require('yaml')
-var configFile = 'config.yaml'
+var configFile = 'config.json'
 
 app.use(express.static(__dirname + '/static'))
 app.use(express.bodyParser())
@@ -15,7 +14,7 @@ app.get('/', function(req, res) {
 
 app.get('/config', function(req, res) {
   fs.readFile(configFile, function(err, fileContents) {
-    res.send(yaml.eval(fileContents.toString()))
+    res.send(JSON.parse(fileContents.toString()))
   })
 })
 
@@ -26,4 +25,3 @@ app.post('/moodUpdate', function(req, res) {
     moodMessage: req.body.moodMessage})
   res.send('ok')
 })
-

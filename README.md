@@ -59,7 +59,6 @@ You will need [Node.js](http://nodejs.org/) and [npm](http://npmjs.org/). Also s
 
     npm install socket.io
     npm install express
-    npm install yaml
 
 I installed these in my home folder under `node_modules`. Node.js finds
 them easily there.
