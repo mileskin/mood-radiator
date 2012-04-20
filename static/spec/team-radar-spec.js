@@ -138,6 +138,22 @@ describe('team radar', function() {
         expect($('#bob .moodMessage')).toHaveText('the same')
       })
     })
+
+    it('shrinks the font-size of the mood message if the message is lengthy', function() {
+      var longMoodMessage = ""
+      while (longMoodMessage.length < 150) {
+        longMoodMessage += "wuf! "
+      }
+      specHelper.async(function() {
+        specHelper.updateMood('bob', '3', longMoodMessage)
+        specHelper.updateMood('jill', '3', 'This is a short bark. Wuf!')
+      })
+      specHelper.async(function() {
+        var bobFontSize = $('#bob .moodMessage').css('font-size').match(/\d+/)
+        var jillFontSize = $('#jill .moodMessage').css('font-size').match(/\d+/)
+        expect(bobFontSize).toBeLessThan(jillFontSize)
+      })
+    })
   })
 
   describe('domain', function() {
