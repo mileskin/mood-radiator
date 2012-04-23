@@ -30,5 +30,6 @@ app.post('/users', function(req, res) {
   var user = userFactory.createUser(req.body.nick, req.body.gravatarUsername)
   database.addUser(user, function() {
     res.send('ok')
+    io.sockets.emit('syncUsers', {})
   })
 })

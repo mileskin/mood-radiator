@@ -3,6 +3,7 @@ var specHelper = (function() {
     initContext: initContext,
     updateMood: updateMood,
     updateMoodWithClient: updateMoodWithClient,
+    registerOrUpdateUserWithClick: registerOrUpdateUserWithClick,
     async: async
   }
 
@@ -44,6 +45,15 @@ var specHelper = (function() {
           moodMessage: message
         }
       })
+    })
+  }
+
+  function registerOrUpdateUserWithClick(nick, gravatarUsername) {
+    waits(200)
+    runs(function() {
+      $('.client #nickInput').val(nick)
+      $('.client #gravatarUsernameInput').val(gravatarUsername)
+      $('.client .registerNewUser').click()
     })
   }
 

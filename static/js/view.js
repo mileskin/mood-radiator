@@ -17,6 +17,11 @@
 
   function init() {
     initMoodUpdateListener()
+    initSyncUsersListener()
+    loadConfig()
+  }
+
+  function loadConfig() {
     $.get('/config', function(config) {
       $('.clientContainer').empty()
       var isRadiatorMode = document.location.href.match(/\/\?radiator=true$/)
@@ -119,6 +124,13 @@
     var socket = io.connect(window.location.href)
     socket.on('moodUpdate', function(data) {
       updateMood(new User(data).save())
+    })
+  }
+
+  function initSyncUsersListener() {
+    var socket = io.connect(window.location.href)
+    socket.on('syncUsers', function() {
+      loadConfig()
     })
   }
 
