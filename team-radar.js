@@ -1,8 +1,8 @@
 var express = require('express')
 var app = express.createServer()
 var io = require('socket.io').listen(app)
-var fs = require('fs')
-var configFile = 'config.json'
+var database = require('./lib/database')
+var userFactory = require('./lib/user-factory')
 
 app.use(express.static(__dirname + '/static'))
 app.use(express.bodyParser())
@@ -13,8 +13,8 @@ app.get('/', function(req, res) {
 })
 
 app.get('/config', function(req, res) {
-  fs.readFile(configFile, function(err, fileContents) {
-    res.send(JSON.parse(fileContents.toString()))
+  database.loadConfig(function(configJSON) {
+    res.send(configJSON)
   })
 })
 
@@ -27,24 +27,9 @@ app.post('/moodUpdate', function(req, res) {
 })
 
 app.post('/users', function(req, res) {
-  var username = req.body.nick
-  var createNewUser = function() {
-    var gravatarUsername = req.body.gravatarUsername
-    var newUser = {}
-    newUser['nick'] = username
-    if (gravatarUsername) {
-      newUser['gravatarUsername'] = gravatarUsername
-    }
-    return newUser
-  }
-  fs.readFile(configFile, function(err, fileContents) {
-    var config = JSON.parse(fileContents.toString())
-    config.users[username] = createNewUser()
-    fs.writeFile(configFile, JSON.stringify(config, null, 2), function(error) {
-      if (error) {
-        console.log("writing to file failed")
-      }
-    })
+  var user = userFactory.createUser(req.body.nick, req.body.gravatarUsername)
+  database.addUser(user, function() {
+    res.send('ok')
+    io.sockets.emit('syncUsers', {})
   })
-  res.send('ok')
 })

@@ -101,13 +101,23 @@ describe('team radar', function() {
   })
 
   describe('client for registering or updating users', function() {
-    it('has input for nick when not in radiator mode', function() {
-      expect($('.client #nickInput')).toExist()
-      expect($('.client #nickInput')).toBeVisible()
+    beforeEach(function() {
+      useRealAjaxFor({url: '/users', type: 'post'})
+
+      // Registering or updating a user results in reloading the config
+      useRealAjaxFor({url: '/config', type: 'get'})
     })
 
-    it('has input for Gravatar username when not in radiator mode', function() {
-      expect($('.client #gravatarUsernameInput')).toExist()
+    it('immediately shows the new user on screen', function() {
+      specHelper.async(function() {
+        specHelper.registerOrUpdateUserWithClick('max')
+      })
+      specHelper.async(function() {
+        expect($('.users #max')).toBeVisible()
+      })
+    })
+
+    it('allows changing the Gravatar username', function() {
       expect($('.client #gravatarUsernameInput')).toBeVisible()
     })
   })
