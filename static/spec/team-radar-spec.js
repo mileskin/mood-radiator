@@ -100,6 +100,18 @@ describe('team radar', function() {
     })
   })
 
+  describe('client for registering or updating users', function() {
+    it('has input for nick when not in radiator mode', function() {
+      expect($('.client #nickInput')).toExist()
+      expect($('.client #nickInput')).toBeVisible()
+    })
+
+    it('has input for Gravatar username when not in radiator mode', function() {
+      expect($('.client #gravatarUsernameInput')).toExist()
+      expect($('.client #gravatarUsernameInput')).toBeVisible()
+    })
+  })
+
   describe('client for posting mood updates', function() {
     beforeEach(function() {
       specHelper.initContext()

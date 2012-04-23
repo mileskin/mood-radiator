@@ -29,6 +29,20 @@ Usage
 
 Run `node team-radar.js`
 
+### Registering or updating users
+
+It is possible to
+* Update existing users
+* Register new users
+
+#### Curl
+
+`curl -d "nick=test&gravatarUsername=gee" http://localhost:8085/users`
+
+#### Web UI
+
+Open `http://localhost:8085/`, insert a nickname and optionally Gravatar username and press the button.
+
 ### Radiator view
 
 * open `http://localhost:8085/?radiator=true` (client is hidden)
@@ -59,7 +73,6 @@ You will need [Node.js](http://nodejs.org/) and [npm](http://npmjs.org/). Also s
 
     npm install socket.io
     npm install express
-    npm install yaml
 
 I installed these in my home folder under `node_modules`. Node.js finds
 them easily there.
