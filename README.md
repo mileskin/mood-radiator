@@ -7,7 +7,7 @@ teams this aims to bring the whole team mentally a little bit closer
 despite the geographical distance (which _always_ sucks) between sites.
 
 Mood update contains user's nick, mood index and mood message. Nick must
-be one of the nicks listed in `config.yaml`. It's used for identifying
+be one of the nicks listed in `config.json`. It's used for identifying
 the correct user row. Mood index is a number from 1 to 5 (1 == worst, 5
 == best). It used for showing a background color mapped to the given
 index. Given mood message is shown on the user's row.
@@ -79,7 +79,7 @@ them easily there.
 
 For configuring your team members you only need to:
 
-* modify `config.yaml` (using IRC nicks in case you want to use IRC bot as the client)
+* modify `config.json` (using IRC nicks in case you want to use IRC bot as the client)
 * add pics to `static/img/` of team members using naming convention `some-nick.jpg`
 
 Additionally you might want to adjust user row height in `static/css/app.css`:
