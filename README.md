@@ -24,12 +24,39 @@ Status
 It works! My current team uses already. You should too. I
 would love to hear your feedback.
 
+Installation
+-
+
+Mood radiator uses [MongoDB](http://www.mongodb.org/) as the database. You need
+to have it running on your localhost. At startup, Mood radiator automatically
+creates a database named *moodradiator*.
+
+You will also need [Node.js](http://nodejs.org/) and [npm](http://npmjs.org/).
+You can install the required Node modules like so:
+
+    npm install socket.io
+    npm install express
+    npm install mongoose
+    npm install jasmine-node
+
+I installed these in my home folder under `node_modules`. Node.js finds
+them easily there.
+
 Usage
 -
 
 Run `node team-radar.js`.
 
-You can create sample users by running `bin/add_users.sh`.
+For configuring your team members you only need to:
+
+* modify *bin/add_users.sh* and run it (using IRC nicks in case you want to use IRC bot as the client)
+* add pics to `static/img/` of team members using naming convention `some-nick.jpg`
+
+Additionally you might want to adjust user row height in `static/css/app.css`:
+
+    .user {
+      height: 180px;
+    }
 
 ### Registering or updating users
 
@@ -77,37 +104,6 @@ index out then only the message will be changed.
 #### Curl
 
     curl -d "nick=jill&moodIndex=2&moodMessage=having%20a%20bad%20hair%20day" http://localhost:8085/moodUpdate
-
-Installation
--
-
-Mood radiator uses [MongoDB](http://www.mongodb.org/) as the database. You need
-to have it running on your localhost. Mood radiator uses database named
-*moodradiator*.
-
-You will also need [Node.js](http://nodejs.org/) and [npm](http://npmjs.org/).
-You can install the required Node modules like so:
-
-    npm install socket.io
-    npm install express
-    npm install mongoose
-    npm install jasmine-node
-
-I installed these in my home folder under `node_modules`. Node.js finds
-them easily there.
-
-For configuring your team members you only need to:
-
-* modify *bin/add_users.sh* and run it (using IRC nicks in case you want to use IRC bot as the client)
-* add pics to `static/img/` of team members using naming convention `some-nick.jpg`
-
-Additionally you might want to adjust user row height in `static/css/app.css`:
-
-    .user {
-      height: 180px;
-    }
-
-App reboot not needed afterwards, just refresh the page.
 
 Development
 -
