@@ -1,4 +1,4 @@
-Team Radar
+Mood radiator
 =
 
 Shows the current
@@ -52,7 +52,7 @@ them easily there.
 Usage
 -
 
-Run `node team-radar.js`.
+Run `node mood-radiator.js`.
 
 For configuring your team members you only need to:
 
