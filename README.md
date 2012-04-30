@@ -27,7 +27,7 @@ would love to hear your feedback.
 Installation
 -
 
-## MongoDB
+### MongoDB
 
 Mood radiator uses [MongoDB](http://www.mongodb.org/) as the database. You need
 to have it running on your localhost. At startup, Mood radiator automatically
@@ -36,7 +36,7 @@ creates a database named *moodradiator*.
 Just installing MongoDB for your operating system should be enough. You should
 not need to do any configuration.
 
-## Node.js
+### Node.js
 
 You will also need [Node.js](http://nodejs.org/) and [npm](http://npmjs.org/).
 You can install the required Node modules like so:
@@ -121,7 +121,7 @@ modification when you start the following command in background:
 
     sass --watch app.scss:app.css
 
-## Tests
+#I# Tests
 Running the browser tests (server must be started):
 
     http://localhost:8085/?test=true
