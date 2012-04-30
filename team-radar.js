@@ -2,19 +2,26 @@ var express = require('express')
 var app = express.createServer()
 var io = require('socket.io').listen(app)
 var database = require('./lib/database')
-var userFactory = require('./lib/user-factory')
 
 app.use(express.static(__dirname + '/static'))
 app.use(express.bodyParser())
 app.listen(8085)
+
+database.init('moodradiator')
 
 app.get('/', function(req, res) {
   res.sendfile(__dirname + '/index.html')
 })
 
 app.get('/config', function(req, res) {
-  database.loadConfig(function(configJSON) {
-    res.send(configJSON)
+  var UserModel = database.model('User')
+  UserModel.find({}).exec(function(err, databaseUsers) {
+    var users = {}
+    databaseUsers.forEach(function(user) {
+      users[user.nick] = user
+    })
+
+    res.send({users : users})
   })
 })
 
@@ -27,9 +34,15 @@ app.post('/moodUpdate', function(req, res) {
 })
 
 app.post('/users', function(req, res) {
-  var user = userFactory.createUser(req.body.nick, req.body.gravatarUsername)
-  database.addUser(user, function() {
-    res.send('ok')
-    io.sockets.emit('syncUsers', {})
-  })
+  var UserModel = database.model('User')
+  var user = new UserModel(
+    {nick: req.body.nick, gravatarUsername: req.body.gravatarUsername}
+  )
+  user.save(errorHandler)
+  res.send('ok')
+  io.sockets.emit('syncUsers', {})
 })
+
+var errorHandler = function(error) {
+  if (error) { console.log(error) }
+}
