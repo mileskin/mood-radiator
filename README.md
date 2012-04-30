@@ -121,7 +121,7 @@ modification when you start the following command in background:
 
     sass --watch app.scss:app.css
 
-#I# Tests
+### Tests
 Running the browser tests (server must be started):
 
     http://localhost:8085/?test=true
