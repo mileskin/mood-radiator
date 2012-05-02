@@ -1,27 +1,31 @@
 var specHelper = (function() {
   return {
     initContext: initContext,
+    resetBackend: resetBackend,
     updateMood: updateMood,
     updateMoodWithClient: updateMoodWithClient,
-    registerOrUpdateUserWithClick: registerOrUpdateUserWithClick,
+    registerUserWithClick: registerUserWithClick,
     async: async
   }
 
   function initContext(customOptions) {
     var defaultOptions = {
-      config: {
-        users: {
-          a: {nick: 'bob'},
-          b: {nick: 'jill'}
-        }
-      },
       beforeViewInit: function() {}
     }
     var options = $.extend(defaultOptions, customOptions)
-    registerFakeAjax({url: '/config', successData: options.config})
+    useRealAjaxFor({url: '/config', type: 'get'})
+    useRealAjaxFor({url: '/users', type: 'post'})
     localStorage.clear()
     options.beforeViewInit()
     $.teamRadar.view.init()
+  }
+
+  function resetBackend() {
+    useRealAjaxFor({url: '/all', type: 'delete'})
+    $.ajax({
+      type: 'delete',
+      url: '/all'
+    })
   }
 
   function updateMoodWithClient(nick, message) {
@@ -48,13 +52,14 @@ var specHelper = (function() {
     })
   }
 
-  function registerOrUpdateUserWithClick(nick, gravatarUsername) {
+  function registerUserWithClick(nick, gravatarUsername) {
     waits(200)
     runs(function() {
       $('.client #nickInput').val(nick)
       $('.client #gravatarUsernameInput').val(gravatarUsername)
       $('.client .registerNewUser').click()
     })
+    waits(200)
   }
 
   function async(callback) {

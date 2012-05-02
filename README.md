@@ -45,6 +45,7 @@ You can install the required Node modules like so:
     npm install express
     npm install mongoose
     npm install jasmine-node
+    npm install underscore
 
 I installed these in my home folder under `node_modules`. Node.js finds
 them easily there.
@@ -129,4 +130,4 @@ Running the browser tests (server must be started):
 Running the back-end tests (assumes that you have installed Jasmine-node with
 the global *-g* switch):
 
-    jasmine-node spec
+    jasmine-node test/spec

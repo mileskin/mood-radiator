@@ -1,4 +1,4 @@
-var database = require('./../lib/database')
+var database = require('../../lib/database')
 describe('database', function() {
   beforeEach(function() {
     database.init('moodradiator-test')
