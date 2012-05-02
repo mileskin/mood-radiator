@@ -123,7 +123,7 @@ modification when you start the following command in background:
     sass --watch app.scss:app.css
 
 ### Tests
-Running the browser tests (server must be started):
+Running the browser tests (server must be started with argument `--mode=test`):
 
     http://localhost:8085/?test=true
 
