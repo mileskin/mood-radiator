@@ -2,9 +2,18 @@ describe('team radar', function() {
   var User = $.teamRadar.domain.User
   var timestampFormat = new User({nick: 'any'}).timestampFormat
 
+  beforeEach(function() {
+    specHelper.resetBackend()
+  })
+
   describe('fresh initialization by configured users', function() {
     beforeEach(function() {
-      specHelper.initContext()
+      specHelper.initContext({
+        beforeViewInit: function() {
+          specHelper.registerUserWithClick('jill')
+          specHelper.registerUserWithClick('bob')
+        }
+      })
     })
 
     it('creates a row for each user', function() {
@@ -32,7 +41,12 @@ describe('team radar', function() {
 
   describe('posting mood updates', function() {
     beforeEach(function() {
-      specHelper.initContext()
+      specHelper.initContext({
+        beforeViewInit: function() {
+          specHelper.registerUserWithClick('jill')
+          specHelper.registerUserWithClick('bob')
+        }
+      })
     })
 
     it('updates mood message for user', function() {
@@ -47,15 +61,8 @@ describe('team radar', function() {
   describe('pic url resolver', function() {
     beforeEach(function() {
       specHelper.initContext({
-        config: {
-          users: {
-            a: {
-              nick: 'bob1',
-              gravatarUsername: 'bob'
-            }
-          }
-        },
         beforeViewInit: function() {
+          specHelper.registerUserWithClick('bob1', 'bob')
           registerFakeAjax({
             url: 'http://en.gravatar.com/bob.json',
             successData: {entry: [{hash: "abc123"}]}
@@ -80,6 +87,8 @@ describe('team radar', function() {
     beforeEach(function() {
       specHelper.initContext({
         beforeViewInit: function() {
+          specHelper.registerUserWithClick('jill')
+          specHelper.registerUserWithClick('bob')
           user.save()
         }
       })
@@ -94,37 +103,42 @@ describe('team radar', function() {
       specHelper.updateMood('bob', '5', 'new message')
       specHelper.async(function() {
         var savedUser = $.parseJSON(localStorage.getItem(user.userId()))
-        expect(savedUser.moodIndex).toEqual('5')
+        expect(savedUser.moodIndex).toEqual(5)
         expect(savedUser.moodMessage).toEqual('new message')
       })
     })
   })
 
-  describe('client for registering or updating users', function() {
+  describe('client for registering new users', function() {
     beforeEach(function() {
       useRealAjaxFor({url: '/users', type: 'post'})
 
-      // Registering or updating a user results in reloading the config
+      // Registering a user results in reloading the config
       useRealAjaxFor({url: '/config', type: 'get'})
     })
 
     it('immediately shows the new user on screen', function() {
       specHelper.async(function() {
-        specHelper.registerOrUpdateUserWithClick('max')
+        specHelper.registerUserWithClick('jill')
       })
       specHelper.async(function() {
-        expect($('.users #max')).toBeVisible()
+        expect($('.users #jill')).toBeVisible()
       })
     })
 
-    it('allows changing the Gravatar username', function() {
+    it('allows defining the Gravatar username', function() {
       expect($('.client #gravatarUsernameInput')).toBeVisible()
     })
   })
 
   describe('client for posting mood updates', function() {
     beforeEach(function() {
-      specHelper.initContext()
+      specHelper.initContext({
+        beforeViewInit: function() {
+          specHelper.registerUserWithClick('jill')
+          specHelper.registerUserWithClick('bob')
+        }
+      })
     })
 
     it('is visible when not in radiator mode', function() {
